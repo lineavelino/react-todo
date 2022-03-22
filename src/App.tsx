@@ -1,5 +1,10 @@
+import { InputTask } from './components/InputTask';
+
 export function App() {
   return (
-    <h1>To-Do</h1>
+    <main>
+      <h1>To-Do</h1>
+      <InputTask />
+    </main>
   )
 }
