@@ -1,0 +1,20 @@
+.backgroundHeader {
+    background-image: url(../../img/bg-desktop-light.jpg);
+    background-repeat: round;
+    height: 18.75rem; //300 px
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 37rem;
+}
+
+h1 {
+    color: #FFFF;
+    letter-spacing: .5rem;
+}
