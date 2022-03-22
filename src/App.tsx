@@ -1,7 +1,11 @@
-import { Header } from "./components/Header";
+import { InputTask } from './components/InputTask';
+import { Header } from './components/Header';
 
 export function App() {
   return (
-    <Header />
-  )
+    <main>
+      <Header />
+      <InputTask />
+    </main>
+   )
 }
