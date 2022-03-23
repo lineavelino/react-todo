@@ -1,16 +1,10 @@
+import { Task } from '../Task';
 import styles from './styles.module.scss';
 
 export function TaskList() {
     return (
         <section className={styles.taskListContainer}>
-            <div>
-                <li>Jog around the park 3x</li>
-                <li>10 minutes meditation</li>
-                <li>Read for 1 hour</li>
-                <li>Pick up groceries</li>
-                <li>Complete Todo App on Frontend Mentor</li>
-
-            </div>
+            <Task />
 
             <footer className={styles.footerContainer}>
                 <span>
