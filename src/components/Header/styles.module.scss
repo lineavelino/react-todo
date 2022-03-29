@@ -1,20 +1,23 @@
 .backgroundHeader {
-    background-image: url(../../img/bg-desktop-light.jpg);
-    background-repeat: round;
-    height: 18.75rem; //300 px
-    display: flex;
-    align-items: stretch;
-    justify-content: center;
+  background-image: url(../../img/bg-desktop-light.jpg);
+  background-repeat: no-repeat;
+  background-size: auto;
+  height: 18.75rem; //300 px
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
 }
 
 .headerContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 37rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 30rem;
+  height: 14rem;
+  margin: 0 1rem;
 
-    h1 {
-        color: #FFFF;
-        letter-spacing: .5rem;
-    }
+  h1 {
+    color: #ffff;
+    letter-spacing: 0.5rem;
+  }
 }
