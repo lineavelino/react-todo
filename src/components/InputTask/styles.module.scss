@@ -1,9 +1,9 @@
 .container {
   display: flex;
   justify-content: space-between;
-  margin: 0 auto;
+  margin: -8rem auto 0;
   padding: 0.5rem 0.5rem;
-  width: 37rem;
+  width: 30rem;
   background: #fff;
   border-radius: 0.5rem;
 }
@@ -18,10 +18,27 @@
 .button {
   width: 2.25rem;
   height: 2.25rem;
+  margin-right: 0.5rem;
   border: none;
   border-radius: 50%;
   background-image: linear-gradient(to right, #57ddff, #c058f3);
   font-size: 1.125rem;
   font-weight: bold;
   color: #fff;
+}
+
+@media only screen and (max-width: 600px) {
+  .container {
+    width: 25rem;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .container {
+    width: 15rem;
+  }
+  .textInput {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
 }
