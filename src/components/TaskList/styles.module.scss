@@ -9,6 +9,15 @@
   gap: 1rem;
 }
 
+.listContainer {
+  width: 30rem;
+
+  label {
+    cursor: pointer;
+    width: 30rem;
+  }
+}
+
 .footerContainer {
   padding: 1rem;
   display: flex;
@@ -36,11 +45,21 @@
   .taskListContainer {
     width: 25rem;
   }
+  .listContainer {
+    width: 25rem;
+  }
 }
 
 @media only screen and (max-width: 400px) {
   .taskListContainer {
     width: 15rem;
+  }
+  .listContainer {
+    width: 15rem;
+
+    label {
+      width: 10rem;
+    }
   }
   .footerContainer {
     flex-wrap: wrap;

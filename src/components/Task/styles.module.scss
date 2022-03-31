@@ -1,12 +1,3 @@
-.listContainer {
-  width: 30rem;
-
-  label {
-    cursor: pointer;
-    width: 30rem;
-  }
-}
-
 .listItem {
   display: flex;
   align-items: center;
@@ -35,6 +26,12 @@
   }
 }
 
+.itemDragging {
+  border: 2px solid #ddf8ff;
+  background: #ddf8ff;
+  opacity: 0.5;
+}
+
 .checkbox {
   margin: 0.5rem 1rem;
   height: 25px;
@@ -59,23 +56,12 @@
 }
 
 @media only screen and (max-width: 600px) {
-  .listContainer {
-    width: 25rem;
-  }
-
   .checkbox {
     padding: 0.5rem;
   }
 }
 
 @media only screen and (max-width: 400px) {
-  .listContainer {
-    width: 15rem;
-
-    label {
-      width: 10rem;
-    }
-  }
   .listItem {
     font-size: 1rem;
     padding: 0.5rem;
