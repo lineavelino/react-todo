@@ -1,16 +1,35 @@
-import { useDrag } from "react-dnd";
+import { useDrag, useDrop } from "react-dnd";
+import { useRef } from "react";
 
 import styles from "./styles.module.scss";
 import cross from "../../img/icon-cross.svg";
 import checked from "../../img/icon-check.svg";
 
-export function Task({ text }) {
+export function Task({ task, listCallback }) {
+  const ref = useRef();
+
   const [{ isDragging }, dragRef] = useDrag(() => ({
     type: "TASK",
+    item: task,
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
   }));
+
+  const [{ isOver }, dropRef] = useDrop(() => ({
+    accept: "TASK",
+    hover(item) {
+      // console.log(item);
+      // console.log(task);
+    },
+    drop: (item) => moveToDo(item, task),
+  }));
+
+  const moveToDo = (item, task) => {
+    listCallback(item, task);
+  };
+
+  dragRef(dropRef(ref));
 
   return (
     <li
@@ -19,13 +38,13 @@ export function Task({ text }) {
           ? [styles.listItem, styles.itemDragging].join(" ")
           : styles.listItem
       }
-      ref={dragRef}
+      ref={ref}
     >
-      <input type="checkbox" id="teste" checked="checked" />
+      <input type="checkbox" id="teste" checked="checked" readOnly />
       <span className={styles.checkbox}>
         <img className={styles.checked} src={checked} alt="checked" />
       </span>
-      <label htmlFor="teste">{text}</label>
+      <label htmlFor="teste">{task.title}</label>
       <img className={styles.cross} src={cross} alt="delete" />
     </li>
   );

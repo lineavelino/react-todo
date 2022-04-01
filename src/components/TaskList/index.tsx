@@ -1,20 +1,18 @@
+import { useCallback, useState } from "react";
 import { useDrop } from "react-dnd";
 import { Task } from "../Task";
 import styles from "./styles.module.scss";
 
-export function TaskList({ tasks }) {
-  const [{ isOver }, dropRef] = useDrop(() => ({
-    accept: "TASK",
-    collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
-    }),
-  }));
+export function TaskList({ tasks, taskListCallback }) {
+  let listCallback = (item, task) => {
+    taskListCallback(item, task);
+  };
 
   return (
     <section className={styles.taskListContainer}>
-      <ul className={styles.listContainer} ref={dropRef}>
+      <ul className={styles.listContainer}>
         {tasks.map((task, index) => (
-          <Task key={index} text={task.title} />
+          <Task key={index} task={task} listCallback={listCallback} />
         ))}
       </ul>
 
