@@ -3,15 +3,9 @@ import { InputTask } from "../InputTask";
 import { TaskList } from "../TaskList";
 import styles from "./styles.module.scss";
 
-let temp = [
-  { id: 1, title: "um" },
-  { id: 2, title: "dois" },
-  { id: 3, title: "tres" },
-];
-
 export function ToDo() {
-  let [tasks, setTasks] = useState(temp);
-  let tasksRef = useRef(temp);
+  let [tasks, setTasks] = useState([]);
+  let tasksRef = useRef([]);
 
   useEffect(() => {
     tasksRef.current = tasks;
@@ -27,20 +21,27 @@ export function ToDo() {
   );
 
   let taskListCallback = (draggedItem, hoveredItem) => {
-    let draggedIndex = tasks.indexOf(draggedItem);
-    let hoveredIndex = tasks.indexOf(hoveredItem);
     let tempTasks = [...tasksRef.current];
+    let draggedIndex = tempTasks.findIndex((el) => el.id == draggedItem.id);
+    let hoveredIndex = tempTasks.findIndex((el) => el.id == hoveredItem.id);
 
-    // tempTasks.splice(draggedIndex, 1);
-    tempTasks.splice(hoveredIndex, 0, draggedItem);
+    move(tempTasks, draggedIndex, hoveredIndex);
+
+    tempTasks.forEach((el, idx) => {
+      el.index = idx;
+    });
 
     setTasks(tempTasks);
+  };
+
+  const move = (arr, from, to) => {
+    arr.splice(to, 0, arr.splice(from, 1)[0]);
   };
 
   return (
     <>
       <InputTask toDoCallback={toDoCallback} />
-      <TaskList tasks={tasks} taskListCallback={taskListCallback} />
+      <TaskList data={tasks} taskListCallback={taskListCallback} />
     </>
   );
 }

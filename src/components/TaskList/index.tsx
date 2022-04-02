@@ -1,18 +1,24 @@
-import { useCallback, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDrop } from "react-dnd";
 import { Task } from "../Task";
 import styles from "./styles.module.scss";
 
-export function TaskList({ tasks, taskListCallback }) {
+export function TaskList({ data, taskListCallback }) {
+  let [tasks, setTasks] = useState([...data]);
+
   let listCallback = (item, task) => {
     taskListCallback(item, task);
   };
+
+  useEffect(() => {
+    setTasks(data);
+  }, [data]);
 
   return (
     <section className={styles.taskListContainer}>
       <ul className={styles.listContainer}>
         {tasks.map((task, index) => (
-          <Task key={index} task={task} listCallback={listCallback} />
+          <Task key={task.id} data={task} listCallback={listCallback} />
         ))}
       </ul>
 

@@ -2,7 +2,8 @@ import { useState } from "react";
 import { TaskList } from "../TaskList";
 import styles from "./styles.module.scss";
 
-let i = 0;
+let id = 1;
+let idx = 0;
 
 export function InputTask({ toDoCallback }) {
   let [task, setTask] = useState({});
@@ -11,9 +12,10 @@ export function InputTask({ toDoCallback }) {
     event.preventDefault();
 
     let inputTitle = event.target[0].value;
-    let tempTask = { id: i, title: inputTitle };
+    let tempTask = { id: id, title: inputTitle, index: idx, checked: false };
     setTask(tempTask);
-    i++;
+    id++;
+    idx++;
     toDoCallback(tempTask);
   }
 
