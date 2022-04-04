@@ -1,16 +1,18 @@
-import { InputTask } from './components/InputTask';
-import { Header } from './components/Header';
-import { TaskList } from './components/TaskList';
-import styles from './App.module.scss';
+import { Header } from "./components/Header";
+import { ToDo } from "./components/ToDo";
+
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+
+import styles from "./App.module.scss";
 
 export function App() {
   return (
-    <>
+    <DndProvider backend={HTML5Backend}>
       <Header />
       <main className={styles.container}>
-        <InputTask />
-        <TaskList />
+        <ToDo />
       </main>
-    </>
-  )
+    </DndProvider>
+  );
 }
