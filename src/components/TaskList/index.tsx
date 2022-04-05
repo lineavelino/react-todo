@@ -3,12 +3,8 @@ import { useDrop } from "react-dnd";
 import { Task } from "../Task";
 import styles from "./styles.module.scss";
 
-export function TaskList({ data, taskListCallback }) {
+export function TaskList({ data, dropCallback, removeCallback }) {
   let [tasks, setTasks] = useState([...data]);
-
-  let listCallback = (item, task) => {
-    taskListCallback(item, task);
-  };
 
   useEffect(() => {
     setTasks(data);
@@ -18,7 +14,12 @@ export function TaskList({ data, taskListCallback }) {
     <section className={styles.taskListContainer}>
       <ul className={styles.listContainer}>
         {tasks.map((task, index) => (
-          <Task key={task.id} data={task} listCallback={listCallback} />
+          <Task
+            key={task.id}
+            data={task}
+            dropCallback={dropCallback}
+            removeCallback={removeCallback}
+          />
         ))}
       </ul>
 
