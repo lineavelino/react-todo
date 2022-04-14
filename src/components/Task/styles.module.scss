@@ -23,6 +23,10 @@
   input:checked ~ .checkbox {
     background-image: linear-gradient(to right, #57ddff, #c058f3);
     border: none;
+
+    img {
+      padding-bottom: 0.2rem;
+    }
   }
 }
 
@@ -44,10 +48,6 @@
   &:hover {
     border: 2px solid #c058f3;
   }
-}
-
-.checked {
-  padding-bottom: 0.2rem;
 }
 
 .cross {
@@ -73,11 +73,6 @@
   .checkbox {
     margin: 0 0.5rem;
   }
-  .checked {
-    height: 0.75rem;
-    width: 0.75rem;
-  }
-
   .cross {
     width: 0.75rem;
     margin: 0.25rem;

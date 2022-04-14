@@ -1,9 +1,27 @@
 import { useEffect, useState } from "react";
-import { useDrop } from "react-dnd";
 import { Task } from "../Task";
 import styles from "./styles.module.scss";
 
-export function TaskList({ data, dropCallback, removeCallback }) {
+interface taskData {
+  id: number;
+  title: string;
+  index: number;
+  checked: boolean;
+}
+
+interface taskProps {
+  data: taskData[];
+  dropCallback: (draggedItem: taskData, hoveredItem: taskData) => void;
+  removeCallback: (task: taskData) => void;
+  isCheckedCallback: (task: taskData) => void;
+}
+
+export function TaskList({
+  data,
+  dropCallback,
+  removeCallback,
+  isCheckedCallback,
+}: taskProps) {
   let [tasks, setTasks] = useState([...data]);
 
   useEffect(() => {
@@ -19,6 +37,7 @@ export function TaskList({ data, dropCallback, removeCallback }) {
             data={task}
             dropCallback={dropCallback}
             removeCallback={removeCallback}
+            isCheckedCallback={isCheckedCallback}
           />
         ))}
       </ul>
