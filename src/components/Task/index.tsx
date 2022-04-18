@@ -16,14 +16,14 @@ interface taskProps {
   data: taskData;
   dropCallback: (draggedItem: taskData, hoveredItem: taskData) => void;
   removeCallback: (task: taskData) => void;
-  isCheckedCallback: (task: taskData) => void;
+  toggleCheckedCallback: (task: taskData) => void;
 }
 
 export function Task({
   data,
   dropCallback,
   removeCallback,
-  isCheckedCallback,
+  toggleCheckedCallback,
 }: taskProps) {
   let [task, setTask] = useState({ ...data });
 
@@ -53,7 +53,7 @@ export function Task({
   }
 
   function handleChecked(task: taskData) {
-    isCheckedCallback(task);
+    toggleCheckedCallback(task);
   }
 
   return (
@@ -65,7 +65,11 @@ export function Task({
       }
       ref={ref}
     >
-      <input type="checkbox" id="teste" />
+      <input
+        className={task.checked == true ? styles.isChecked : ""}
+        type="checkbox"
+        id="teste"
+      />
       <span className={styles.checkbox}>
         <img src={checked} alt="checkbox" onClick={() => handleChecked(task)} />
       </span>

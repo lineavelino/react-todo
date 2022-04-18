@@ -13,14 +13,14 @@ interface taskProps {
   data: taskData[];
   dropCallback: (draggedItem: taskData, hoveredItem: taskData) => void;
   removeCallback: (task: taskData) => void;
-  isCheckedCallback: (task: taskData) => void;
+  toggleCheckedCallback: (task: taskData) => void;
 }
 
 export function TaskList({
   data,
   dropCallback,
   removeCallback,
-  isCheckedCallback,
+  toggleCheckedCallback,
 }: taskProps) {
   let [tasks, setTasks] = useState([...data]);
 
@@ -37,7 +37,7 @@ export function TaskList({
             data={task}
             dropCallback={dropCallback}
             removeCallback={removeCallback}
-            isCheckedCallback={isCheckedCallback}
+            toggleCheckedCallback={toggleCheckedCallback}
           />
         ))}
       </ul>

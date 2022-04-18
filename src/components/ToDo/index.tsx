@@ -1,7 +1,6 @@
 import { useCallback, useState, useRef, useEffect } from "react";
 import { InputTask } from "../InputTask";
 import { TaskList } from "../TaskList";
-import styles from "./styles.module.scss";
 
 interface taskData {
   id: number;
@@ -13,13 +12,9 @@ interface taskData {
 export function ToDo() {
   let localStorageTasks = JSON.parse(localStorage.getItem("tasks") || "{}");
   let [tasks, setTasks] = useState(localStorageTasks ?? []);
-  let tasksRef = useRef([]);
+  let tasksRef = useRef<taskData[]>([]);
 
-  const move = (
-    arr: Array<string | number | boolean>,
-    from: number,
-    to: number
-  ) => {
+  const move = (arr: taskData[], from: number, to: number) => {
     arr.splice(to, 0, arr.splice(from, 1)[0]);
     console.log(arr);
   };
@@ -29,7 +24,7 @@ export function ToDo() {
   }, [tasks]);
 
   let toDoCallback = useCallback(
-    (task) => {
+    (task: taskData) => {
       let currentTasks = [...tasks, task];
 
       setTasks(currentTasks);
@@ -69,8 +64,14 @@ export function ToDo() {
     localStorage.setItem("tasks", JSON.stringify(tempTasks));
   };
 
-  let isCheckedCallback = (task: taskData) => {
+  let toggleCheckedCallback = (task: taskData) => {
     let tempTasks = [...tasksRef.current];
+    let checkedItem = tempTasks[task.index];
+
+    checkedItem.checked = !checkedItem.checked;
+
+    setTasks(tempTasks);
+    localStorage.setItem("tasks", JSON.stringify(tempTasks));
     console.log(tempTasks);
   };
 
@@ -81,7 +82,7 @@ export function ToDo() {
         data={tasks}
         dropCallback={dropCallback}
         removeCallback={removeCallback}
-        isCheckedCallback={isCheckedCallback}
+        toggleCheckedCallback={toggleCheckedCallback}
       />
     </>
   );
