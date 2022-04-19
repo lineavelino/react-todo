@@ -1,14 +1,20 @@
 import { useCallback, useState, useRef, useEffect } from "react";
 import { InputTask } from "../InputTask";
 import { TaskList } from "../TaskList";
-import styles from "./styles.module.scss";
+
+interface taskData {
+  id: number;
+  title: string;
+  index: number;
+  checked: boolean;
+}
 
 export function ToDo() {
-  let localStorageTasks = JSON.parse(localStorage.getItem("tasks"));
+  let localStorageTasks = JSON.parse(localStorage.getItem("tasks") || "{}");
   let [tasks, setTasks] = useState(localStorageTasks ?? []);
-  let tasksRef = useRef([]);
+  let tasksRef = useRef<taskData[]>([]);
 
-  const move = (arr, from, to) => {
+  const move = (arr: taskData[], from: number, to: number) => {
     arr.splice(to, 0, arr.splice(from, 1)[0]);
     console.log(arr);
   };
@@ -18,7 +24,7 @@ export function ToDo() {
   }, [tasks]);
 
   let toDoCallback = useCallback(
-    (task) => {
+    (task: taskData) => {
       let currentTasks = [...tasks, task];
 
       setTasks(currentTasks);
@@ -27,14 +33,18 @@ export function ToDo() {
     [tasks]
   );
 
-  let dropCallback = (draggedItem, hoveredItem) => {
+  let dropCallback = (draggedItem: taskData, hoveredItem: taskData) => {
     let tempTasks = [...tasksRef.current];
-    let draggedIndex = tempTasks.findIndex((el) => el.id == draggedItem.id);
-    let hoveredIndex = tempTasks.findIndex((el) => el.id == hoveredItem.id);
+    let draggedIndex = tempTasks.findIndex(
+      (el: taskData) => el.id == draggedItem.id
+    );
+    let hoveredIndex = tempTasks.findIndex(
+      (el: taskData) => el.id == hoveredItem.id
+    );
 
     move(tempTasks, draggedIndex, hoveredIndex);
 
-    tempTasks.forEach((el, idx) => {
+    tempTasks.forEach((el: taskData, idx) => {
       el.index = idx;
     });
 
@@ -42,16 +52,27 @@ export function ToDo() {
     localStorage.setItem("tasks", JSON.stringify(tempTasks));
   };
 
-  let removeCallback = (task) => {
+  let removeCallback = (task: taskData) => {
     let tempTasks = [...tasksRef.current];
     tempTasks.splice(task.index, 1);
 
-    tempTasks.forEach((el, idx) => {
+    tempTasks.forEach((el: taskData, idx) => {
       el.index = idx;
     });
 
     setTasks(tempTasks);
     localStorage.setItem("tasks", JSON.stringify(tempTasks));
+  };
+
+  let toggleCheckedCallback = (task: taskData) => {
+    let tempTasks = [...tasksRef.current];
+    let checkedItem = tempTasks[task.index];
+
+    checkedItem.checked = !checkedItem.checked;
+
+    setTasks(tempTasks);
+    localStorage.setItem("tasks", JSON.stringify(tempTasks));
+    console.log(tempTasks);
   };
 
   return (
@@ -61,6 +82,7 @@ export function ToDo() {
         data={tasks}
         dropCallback={dropCallback}
         removeCallback={removeCallback}
+        toggleCheckedCallback={toggleCheckedCallback}
       />
     </>
   );

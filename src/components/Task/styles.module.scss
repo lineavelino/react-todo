@@ -19,10 +19,14 @@
     height: 0;
     width: 0;
   }
-
-  input:checked ~ .checkbox {
+  
+  .isChecked ~ .checkbox {
     background-image: linear-gradient(to right, #57ddff, #c058f3);
     border: none;
+
+    img {
+      padding: 0.5rem;
+    }
   }
 }
 
@@ -39,15 +43,14 @@
   background-color: hsl(0, 0%, 100%);
   border: solid 2px hsl(0, 0%, 92%);
   border-radius: 50%;
-  padding: 0.5rem;
 
   &:hover {
     border: 2px solid #c058f3;
   }
-}
 
-.checked {
-  padding-bottom: 0.2rem;
+  img {
+    padding: 0.5rem;
+  }
 }
 
 .cross {
@@ -59,12 +62,6 @@
   }
 }
 
-@media only screen and (max-width: 600px) {
-  .checkbox {
-    padding: 0.5rem;
-  }
-}
-
 @media only screen and (max-width: 400px) {
   .listItem {
     font-size: 1rem;
@@ -73,11 +70,6 @@
   .checkbox {
     margin: 0 0.5rem;
   }
-  .checked {
-    height: 0.75rem;
-    width: 0.75rem;
-  }
-
   .cross {
     width: 0.75rem;
     margin: 0.25rem;

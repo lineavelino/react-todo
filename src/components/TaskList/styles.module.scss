@@ -14,7 +14,7 @@
 
   label {
     cursor: pointer;
-    width: 30rem;
+    width: 20rem;
   }
 }
 
@@ -47,6 +47,10 @@
   }
   .listContainer {
     width: 25rem;
+
+    label {
+      width: 15rem;
+    }
   }
 }
 

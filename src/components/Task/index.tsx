@@ -5,10 +5,29 @@ import styles from "./styles.module.scss";
 import cross from "../../img/icon-cross.svg";
 import checked from "../../img/icon-check.svg";
 
-export function Task({ data, dropCallback, removeCallback }) {
+interface taskData {
+  id: number;
+  title: string;
+  index: number;
+  checked: boolean;
+}
+
+interface taskProps {
+  data: taskData;
+  dropCallback: (draggedItem: taskData, hoveredItem: taskData) => void;
+  removeCallback: (task: taskData) => void;
+  toggleCheckedCallback: (task: taskData) => void;
+}
+
+export function Task({
+  data,
+  dropCallback,
+  removeCallback,
+  toggleCheckedCallback,
+}: taskProps) {
   let [task, setTask] = useState({ ...data });
 
-  const ref = useRef();
+  const ref = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
     setTask(data);
@@ -22,15 +41,19 @@ export function Task({ data, dropCallback, removeCallback }) {
     }),
   }));
 
-  const [{ isOver }, dropRef] = useDrop(() => ({
+  const [, dropRef] = useDrop(() => ({
     accept: "TASK",
-    drop: (item) => dropCallback(item, task),
+    drop: (item) => dropCallback(item as taskData, task),
   }));
 
   dragRef(dropRef(ref));
 
-  function handleDelete(task) {
+  function handleDelete(task: taskData) {
     removeCallback(task);
+  }
+
+  function handleChecked(task: taskData) {
+    toggleCheckedCallback(task);
   }
 
   return (
@@ -42,9 +65,13 @@ export function Task({ data, dropCallback, removeCallback }) {
       }
       ref={ref}
     >
-      <input type="checkbox" id="teste" checked="checked" readOnly />
+      <input
+        className={task.checked == true ? styles.isChecked : ""}
+        type="checkbox"
+        id="teste"
+      />
       <span className={styles.checkbox}>
-        <img className={styles.checked} src={checked} alt="checked" />
+        <img src={checked} alt="checkbox" onClick={() => handleChecked(task)} />
       </span>
       <label htmlFor="teste">{task.title}</label>
       <img
