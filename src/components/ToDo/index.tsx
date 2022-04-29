@@ -16,7 +16,6 @@ export function ToDo() {
 
   const move = (arr: taskData[], from: number, to: number) => {
     arr.splice(to, 0, arr.splice(from, 1)[0]);
-    console.log(arr);
   };
 
   useEffect(() => {
@@ -72,7 +71,6 @@ export function ToDo() {
 
     setTasks(tempTasks);
     localStorage.setItem("tasks", JSON.stringify(tempTasks));
-    console.log(tempTasks);
   };
 
   return (

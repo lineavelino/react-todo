@@ -28,6 +28,11 @@
       padding: 0.5rem;
     }
   }
+
+  .isChecked ~ label {
+    text-decoration: line-through;
+    color: hsl(233, 11%, 84%);
+  }
 }
 
 .itemDragging {
