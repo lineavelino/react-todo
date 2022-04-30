@@ -10,7 +10,7 @@ interface taskData {
 }
 
 export function ToDo() {
-  let localStorageTasks = JSON.parse(localStorage.getItem("tasks") || "{}");
+  let localStorageTasks = JSON.parse(localStorage.getItem("tasks") || "[]");
   let [tasks, setTasks] = useState(localStorageTasks ?? []);
   let tasksRef = useRef<taskData[]>([]);
 
